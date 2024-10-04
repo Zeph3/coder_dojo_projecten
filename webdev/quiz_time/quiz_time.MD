@@ -51,13 +51,16 @@ print(deelnemers_met_leeftijd) # output [['Pietje Puk', '8'], ['Joris de groen',
 Python heeft een ingebouwde csv lezer dat csv bestanden voor je inleest. Hierboven zie je dat iedere regel in een aparte lijst is. Daardoor kan je bijvoorbeeld alle leeftijden in een andere lijst bij te houden:
 
 ```python
-leeftijden_deelnemers = []
+leeftijden_deelnemers = [] # lege lijst
+leeftijden_per_deelnemerst = {} # lege dictionary
 
 for deelnemer in deelnemers_met_leeftijd: # loop door iedere `regel`  in `csv_lezer`
         leeftijd = deelnemer[1] # # selecteer tweede `ding` in de regel. Ja computers tellen vanaf 0 ;)
         leeftijden_deelnemers.append(leeftijd) # voeg leeftijd toe aan lijst
+        leeftijden_per_deelnemerst[deelnemer[0]] = leeftijd # {naam_deelnemer:leeftijd_deelnemer}
 
 print(leeftijden_deelnemers) # Output: ['8', '6']
+print(str(leeftijden_per_deelnemerst)) # Output: {'Pietje Puk': 8, 'Joris de groen': 6}
 ```
 
 Probeer de bovenstaande code uit in `speeltuin.py` om er mee bekend te raken
@@ -66,7 +69,7 @@ Probeer de bovenstaande code uit in `speeltuin.py` om er mee bekend te raken
 We hebben meer data nodig, een quiz met twee vragen is *zucht* te makkelijk. Voeg tenminste 5 vragen toe aan bestand `quiz_data.csv`, gebruik je fantasie! :)
 
 ### Opdracht 1.2
-Je bent gewapend met de kennis om quiz data in te lezen. Maak de functie `laad_bestand()` af in `quiz_time.py`.
+Je bent gewapend met de kennis om quiz data in te lezen. Maak de functie `laad_bestand()` af in `quiz_time.py`. Zorg ervoor dat je een `dictionary` data structuur gebruikt in plaats van een lijst, dit maakt het later makkelijk om antwoorden te vergelijken. 
 
 ### Opdracht 1.3
 De route `/vragen` is een handige `endpoint` om te zien welke quiz vragen en antwoorden er bestaan. Maak de route af. 
@@ -114,23 +117,32 @@ render_template is een functie die vanuit Flask komt waarmee je een HTML pagina 
 Nu we de data hebben en we weten hoe we die moeten inladen, is het een kwestie van de data juist meegeven aan de HTML template. Stuur ingelezen vragen en antwoorden naar template `vragen.html` en render dit bij `/start`. Als de data is ingelezen, kan je door naar 2.2 (Yes er zit een fout :) )
 
 ### Opdracht 2.2
-Oh nee, er zit een fout bij het laden van de vragen. Tijd om te debuggen! Probeert te achterhalen waar de fout vandaan komt en los het op.
+Oh nee, er zit een fout bij het laden van de vragen. Tijd om te debuggen! Probeer te achterhalen waar de fout vandaan komt en los het op.
 
-### 3. Antwoorden per poging opslaan
+### 3. Antwoorden checken en resultaten tonen
+De gebruiker kan haar antwoorden sturen en we hebben een endpoint `/verzend_antwoorden`, maar waar zijn de antwoorden en hoe kan ik dit vinden? Doe je stoelriem om, nu wordt het interessant.
 
+Wanneer je de knop sent drukt, stuur je de `form` data, wat een lijst van sleutel-waarde (sleutel is vraag, waarde is antwoord) op naar je web server. Deze data kan je vinden door `request.form()` functie aan te roepen in de betreffende endpoint. Daarmee heb je de antwoorden op de vragen en kan je dit controleren door het te vergelijken met de ingelezen quiz_vragen (laatste element in de lijst, dus [-1]).
 
-### 4. Antwoorden checken
+### Opdracht 3
+Vergelijk de antwoorden met het juiste antwoord in de geladen vragen. Doordat dit is opgeslagen in een dictionary, is het opzoeken van de data goed te doen. Houdt in gedacht dat alle elementen uit `request.form()` een bepaalde type hebben (tip, dit kan je checken met `type()`)
 
-
-### 5. resultaten tonen
+Zorg ervoor dat de dummy implementatie de juiste resultaten toont.
 
 ## Uitbreiding
+De quiz App is af, maar in de wereld van IT is niks volledig af. Projecten moeten onderhouden worden en er kan altijd wel iets verbeterd worden (true story). Hieronder zijn wat mogelijke uitbreidingen om de quiz app nog beter te maken. De lijst hieronder is niet gesorteerd op prioriteit, jij kiest wat jij zou willen verbeteren.
+
+De onderstaande verbeteringen zijn niet compleet, het kan zijn dat er een verbetering is die hieronder niet is opgenomen (User Interface mooier maken bijvoorbeeld)
+
+### Toon welke vragen fout waren
+
+### Antwoorden per poging opslaan en bijhouden op aparte pagina
 
 ### Vragen random selecteren
 
 ### Tijdslimiet instellen
 
-### Quizes grouperen per categorie (Dieren, Topografie etc.)
+### Meerdere Quizes
 
 ### Huidige status op te slaan per gebruiker
 
