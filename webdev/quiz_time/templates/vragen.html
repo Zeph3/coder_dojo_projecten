@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/style.css') }}">
+    <title>Quiz</title>
+</head>
+<body>
+    <h1>Quiz</h1>
+    <form action="/verzend_antwoorden" method="post">
+        <ul>
+            {% for vraag_en_antwoorden in vragen_en_antwoorden %}
+            <li>
+                <h2>{{ vraag_en_antwoorden[0] }}</h2>
+                <ul>
+                    <li>
+                        <input type="radio" name="{{ vraag_en_antwoorden[0] }}" value="{{ vraag_en_antwoorden[1] }}" required>
+                        {{ vraag_en_antwoorden[1] }}
+                    </li>
+                    <li>
+                        <input type="radio" name="{{ vraag_en_antwoorden[0] }}" value="{{ vraag_en_antwoorden[1] }}" required>
+                        {{ vraag_en_antwoorden[1] }}
+                    </li>
+                    <li>
+                        <input type="radio" name="{{ vraag_en_antwoorden[0] }}" value="{{ vraag_en_antwoorden[1] }}" required>
+                        {{ vraag_en_antwoorden[1] }}
+                    </li>
+                </ul>
+            </li>
+            {% endfor %}
+        </ul>
+        <button type="submit">Verzend antwoorden</button>
+    </form>
+</body>
+</html>
